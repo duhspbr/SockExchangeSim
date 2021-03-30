@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_blue">
+
+    <TextView
+        android:id="@+id/text_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$2 6564, 00"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="30sp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_money"
+        android:text="Saldo Disp"
+        android:textColor="#B6B6B6"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="15sp"
+        android:layout_marginLeft="40dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        app:cardCornerRadius="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Contas"
+                android:textColor="#1A237E"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

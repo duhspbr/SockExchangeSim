@@ -26,13 +26,20 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/c9"/>
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/border_imageview"/>
+
+
         <TextView
             android:id="@+id/lblCompName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_comp"
-            android:layout_marginLeft="180dp"
-            android:layout_above="@+id/lblPercent"
+            android:layout_below="@+id/img_comp"
+            android:layout_marginLeft="22dp"
             android:text="BBK"
             android:textColor="#311B92"
             android:textSize="12sp"
@@ -43,9 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_comp"
-            android:layout_marginLeft="180dp"
-            android:layout_below="@+id/lblVal1"
+            android:layout_toLeftOf="@+id/iconMoney"
+            android:layout_marginEnd="10dp"
             android:text="+2,34%"
             android:textColor="#43A047"
             android:textSize="14sp"
@@ -58,28 +64,18 @@
             android:layout_toRightOf="@id/img_comp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
             android:text="R$ 1 356, 00"
             android:textColor="#757474"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_semibold"/>
 
-        <TextView
-            android:id="@+id/lblVal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img_comp"
-            android:layout_below="@+id/lblCompName"
-            android:layout_marginLeft="25dp"
-            android:text=" 6 654.657 PTS"
-            android:textColor="#9C9B9B"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_semibold"/>
-
         <ImageView
-            android:id="@+id/lblMoney"
+            android:id="@+id/iconMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_comp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="255dp"
             android:src="@drawable/ic_money"/>

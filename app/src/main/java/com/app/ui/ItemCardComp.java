@@ -1,8 +1,4 @@
-package com.app.recyclerviewadapterexample;
-
-import android.graphics.drawable.Drawable;
-
-import com.fasterxml.jackson.annotation.JsonGetter;
+package com.app.ui;
 
 public class ItemCardComp {
 
@@ -19,24 +15,28 @@ public class ItemCardComp {
         this.src = _src;
     }
 
-    @JsonGetter("compCodName")
     public String get_compCodName() {
         return compCodName;
     }
 
-    @JsonGetter("pts")
     public String get_pts() {
         return pts;
     }
 
-    @JsonGetter("val_money")
     public String get_val_money() {
         return val_money;
     }
 
-    @JsonGetter("src")
     public String get_src() {
         return src;
+    }
+
+    public void setVal_money(String val_money) {
+        this.val_money = val_money;
+    }
+
+    public void setPts(String pts) {
+        this.pts = pts;
     }
 
 }

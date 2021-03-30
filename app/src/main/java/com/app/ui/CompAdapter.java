@@ -1,6 +1,5 @@
-package com.app.recyclerviewadapterexample;
+package com.app.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -10,34 +9,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.app.data.models.Companies;
+import com.app.recyclerviewadapterexample.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
-
-    private List<ItemCardComp> itemCardComps;
+    private List<Companies> companiesList = new ArrayList<>();
     private Context context;
     private Drawable icon;
 
-    public CompAdapter(ArrayList<ItemCardComp> _itemCardComps, Context _context) {
-        itemCardComps = _itemCardComps;
-        context = _context;
+    public CompAdapter(Context context) {
+        this.context = context;
     }
 
     public static class MViewHolder extends RecyclerView.ViewHolder {
-
-        final private TextView textViewMoney, textViewPoints,
+        final private TextView textViewMoney,
         textViewCompCode;
         final private ImageView imgLogo;
 
         public MViewHolder(@NonNull View itemView) {
-
             super(itemView);
             textViewMoney = itemView.findViewById(R.id.lblVal1);
             textViewCompCode = itemView.findViewById(R.id.lblCompName);
-            textViewPoints = itemView.findViewById(R.id.lblVal2);
             imgLogo = itemView.findViewById(R.id.img_comp);
         }
     }
@@ -53,16 +51,21 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MViewHolder holder, int position) {
-        ItemCardComp currentItem = itemCardComps.get(position);
-        holder.textViewPoints.setText(currentItem.get_pts());
-        holder.textViewCompCode.setText(currentItem.get_compCodName());
-        holder.textViewMoney.setText(currentItem.get_val_money());
-        int id = context.getResources().getIdentifier(currentItem.get_src(), "drawable", context.getPackageName());
+        Companies currentItem = companiesList.get(position);
+
+        holder.textViewCompCode.setText(currentItem.getCod());
+        holder.textViewMoney.setText(new String ("R$ " + currentItem.getVal()));
+        int id = context.getResources().getIdentifier(currentItem.getLogoImg(), "drawable", context.getPackageName());
         icon = context.getResources().getDrawable(id);
         holder.imgLogo.setImageDrawable(icon);
     }
 
     @Override
-    public int getItemCount() { return itemCardComps.size();
+    public int getItemCount() { return companiesList.size();
+    }
+
+    public void setComps(List<Companies> companies) {
+        this.companiesList = companies;
+        notifyDataSetChanged();
     }
 }
