@@ -39,35 +39,35 @@ public abstract class CompDatabase extends RoomDatabase {
     public static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private final CompaniesDao companiesDao;
 
-        private PopulateDbAsyncTask(CompDatabase db) { companiesDao = db.companiesDao(); }
+        public PopulateDbAsyncTask(CompDatabase db) { companiesDao = db.companiesDao(); }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            companiesDao.insert(new Companies("britshcomp", "BAY", "c1", 245.3f));
-            companiesDao.insert(new Companies("acer", "NOG", "c2", 22.3f));
-            companiesDao.insert(new Companies("adidas", "CAF", "c3", 15.3f));
-            companiesDao.insert(new Companies("armani", "VDS", "c4", 2434.3f));
-            companiesDao.insert(new Companies("bbc", "FGH", "c5", 12.3f));
-            companiesDao.insert(new Companies("atm", "SHN", "c6", 5.3f));
-            companiesDao.insert(new Companies("ameribank", "BNJ", "c7", 35.3f));
-            companiesDao.insert(new Companies("carlberg", "SAS", "c8", 255.3f));
-            companiesDao.insert(new Companies("bbk", "AAA", "c9", 21.3f));
-            companiesDao.insert(new Companies("ann", "GHJ", "c10", 12.3f));
-            companiesDao.insert(new Companies("allizan", "GAT", "c11", 663.3f));
-            companiesDao.insert(new Companies("budwiser", "NHY", "c12", 12.3f));
-            companiesDao.insert(new Companies("barclays", "BGB", "c13", 23.3f));
-            companiesDao.insert(new Companies("boring", "BFG", "c14", 64.3f));
-            companiesDao.insert(new Companies("ameiexp", "SDA", "c15", 233.3f));
-            companiesDao.insert(new Companies("barkingrobins", "NON", "c16", 564.3f));
-            companiesDao.insert(new Companies("bp", "DVD", "c17", 22.3f));
-            companiesDao.insert(new Companies("aep", "SWW", "c18", 11.3f));
-            companiesDao.insert(new Companies("aclu", "VBB", "c19", 21.3f));
-            companiesDao.insert(new Companies("ardobe", "XZZ", "c20", 2.3f));
-            companiesDao.insert(new Companies("cit", "BVF", "c21", 55.3f));
-            companiesDao.insert(new Companies("amaz", "BMF", "c22", 211.3f));
-            companiesDao.insert(new Companies("btes", "CCC", "c23", 6.3f));
-            companiesDao.insert(new Companies("acm", "EWQ", "c24", 3.3f));
-            companiesDao.insert(new Companies("britshcomp", "LCA", "c25", 25.3f));
+            companiesDao.insert(new Companies("Britsh Airways", "BAY", "c1", 245.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Acer", "NOG", "c2", 22.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Adidas", "CAF", "c3", 15.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Armani", "VDS", "c4", 2434.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("BBC", "FGH", "c5", 12.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("ATM", "SHN", "c6", 5.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Bank of America", "BNJ", "c7", 35.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Carl Berg", "SAS", "c8", 255.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Burguer King", "BBK", "c9", 21.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Ann", "GHJ", "c10", 12.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Allianz", "GAT", "c11", 663.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Budwiser", "NHY", "c12", 12.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Barclays", "BGB", "c13", 23.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Boeing", "BFG", "c14", 64.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("American Expr", "SDA", "c15", 233.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Baskin Robbins", "NON", "c16", 564.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("ABInbev", "DVD", "c17", 22.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Bp", "SWW", "c18", 11.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("A&P", "VBB", "c19", 21.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Adobe", "XZZ", "c20", 2.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("CityBank", "BVF", "c21", 55.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("AT&T", "BMF", "c22", 211.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Amazon", "CCC", "c23", 6.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("Beats Electronics", "EWQ", "c24", 3.3f, 0.00f, 0.00f));
+            companiesDao.insert(new Companies("AC&M", "LCA", "c25", 25.3f, 0.00f, 0.00f));
             return null;
         }
     }

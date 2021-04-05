@@ -1,11 +1,9 @@
 package com.app.data.remote.repository;
 
 import android.app.Application;
-import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.loader.content.AsyncTaskLoader;
 
 import com.app.data.models.Companies;
 import com.app.data.remote.datasource.CompDatabase;
@@ -16,18 +14,27 @@ import java.util.List;
 public class CompaniesRepository {
     private final CompaniesDao companiesDao;
     private final LiveData<List<Companies>> allComp;
+    //private final LiveData<Integer> count;
+    private final LiveData<List<Companies>> maxComp;
+    //private final LiveData<Float> minComp;
+    CompDatabase comDB;
 
     public CompaniesRepository(Application application) {
-        CompDatabase compDatabase = CompDatabase.getInstance(application);
-        companiesDao = compDatabase.companiesDao();
+        comDB = CompDatabase.getInstance(application);
+        companiesDao = comDB.companiesDao();
         allComp = companiesDao.getAllComp();
+        maxComp = companiesDao.getMaxValues();
     }
 
-    public void insert(Companies companies) { new InsertCompAsyncTask(companiesDao).execute(); }
+    public void insert(Companies companies) { new InsertCompAsyncTask(companiesDao).execute(companies); }
 
-    public void update(Companies companies) { new UpdateCompAsyncTask(companiesDao).execute(); }
+    public void update(Companies companies) { new UpdateAsyncTask(companiesDao).execute(companies); }
 
     public LiveData<List<Companies>> getAllComp() { return allComp; }
+
+    public LiveData<List<Companies>> getMaxCompValue() { return companiesDao.getMaxValues(); }
+    public LiveData<List<Companies>> getMinCompValue() { return companiesDao.getMinValues(); }
+    public LiveData<Float> getSum() { return companiesDao.getSum(); }
 
     private static class InsertCompAsyncTask extends AsyncTask<Companies, Void, Void> {
         private final CompaniesDao companiesDao;
@@ -41,10 +48,11 @@ public class CompaniesRepository {
         }
     }
 
-    private static class UpdateCompAsyncTask extends AsyncTask<Companies, Void, Void> {
-        private final CompaniesDao companiesDao;
+    private class UpdateAsyncTask extends AsyncTask<Companies, Void, Void> {
 
-        private UpdateCompAsyncTask(CompaniesDao companiesDao) { this.companiesDao = companiesDao; }
+        CompaniesDao companiesDao;
+
+        UpdateAsyncTask(CompaniesDao companiesDao) { this.companiesDao = companiesDao; }
 
         @Override
         protected Void doInBackground(Companies... companies) {

@@ -5,9 +5,10 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.app.data.models.Companies;
+import com.app.data.remote.datasource.CompDatabase;
+import com.app.data.remote.datasource.CompaniesDao;
 import com.app.data.remote.repository.CompaniesRepository;
 
 import java.util.List;
@@ -15,16 +16,25 @@ import java.util.List;
 public class CompaniesViewModel extends AndroidViewModel {
     private CompaniesRepository repository;
     private LiveData<List<Companies>> allComp;
+    CompaniesDao companiesDao;
+    private LiveData<Float> getSum;
+    CompDatabase compDB;
 
     public CompaniesViewModel(@NonNull Application application) {
         super(application);
+        compDB = CompDatabase.getInstance(application);
         repository = new CompaniesRepository(application);
+        companiesDao = compDB.companiesDao();
         allComp = repository.getAllComp();
+
     }
 
     public void insert(Companies companies) { repository.insert(companies); }
-
     public void update(Companies companies) { repository.update(companies); }
 
     public LiveData<List<Companies>> getAllComp() { return allComp; }
+
+    public LiveData<List<Companies>> getMaxComp() { return repository.getMaxCompValue(); }
+    public LiveData<List<Companies>> getMinComp() { return repository.getMinCompValue(); }
+    public LiveData<Float> getSum() { return repository.getSum(); }
 }

@@ -18,6 +18,15 @@ public interface CompaniesDao {
     @Update
     void update(Companies companies);
 
-    @Query("SELECT * FROM comp_data;")
+    @Query("SELECT SUM (val) FROM comp_data")
+    LiveData<Float> getSum();
+
+    @Query("SELECT * FROM comp_data ORDER BY cod")
     LiveData<List<Companies>> getAllComp();
+
+    @Query("SELECT * FROM  comp_data WHERE pct_bfr = (SELECT MAX (pct_bfr) FROM comp_data)")
+    LiveData<List<Companies>> getMaxValues();
+
+    @Query("SELECT * FROM  comp_data WHERE pct_bfr = (SELECT MIN (pct_bfr) FROM comp_data)")
+    LiveData<List<Companies>> getMinValues();
 }
