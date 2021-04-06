@@ -7,8 +7,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.data.models.Companies;
@@ -29,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblBestPct, lblLowePct, lblMoneyBest, lblMoneyLow, lblCodBest,
     lblCodLow, lblSum;
     private NumberFormat nf;
-
-    private ArrayList<Companies> itemCardComps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
