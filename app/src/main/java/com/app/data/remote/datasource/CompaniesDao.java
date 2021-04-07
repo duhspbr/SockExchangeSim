@@ -24,6 +24,9 @@ public interface CompaniesDao {
     @Query("SELECT * FROM comp_data ORDER BY cod")
     LiveData<List<Companies>> getAllComp();
 
+    @Query("SELECT * FROM comp_data ORDER BY pct_bfr DESC")
+    LiveData<List<Companies>> getAllCompDesc();
+
     @Query("SELECT * FROM  comp_data WHERE pct_bfr = (SELECT MAX (pct_bfr) FROM comp_data)")
     LiveData<List<Companies>> getMaxValues();
 

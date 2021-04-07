@@ -11,15 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/lblSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="#2196F3"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
             android:text="$ 1 233,22"
+            android:textColor="#2196F3"
+            app:ticker_animationDuration="1500"
             android:textSize="40sp" />
 
         <TextView
@@ -205,12 +206,34 @@
             android:id="@+id/btnUpdate"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="50dp"
             android:layout_below="@id/hscrollv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_update"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btnSortUp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/hscrollv"
+            android:layout_toLeftOf="@+id/btnSortDown"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/arrowup"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btnSortDown"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/hscrollv"
+            android:layout_toLeftOf="@+id/btnUpdate"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/arrowdown"
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv"

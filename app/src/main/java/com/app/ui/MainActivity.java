@@ -1,6 +1,7 @@
 package com.app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,12 +14,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.data.models.Companies;
 import com.app.recyclerviewadapterexample.R;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private CompAdapter compAdapter;
     private CompaniesViewModel viewModel;
-    private ImageView btnUpdate;
+    private ImageView btnUpdate, btnOrderUp, btnOrderDown;
     private TextView lblBestPct, lblLowePct, lblMoneyBest, lblMoneyLow, lblCodBest,
     lblCodLow, lblSum;
     private NumberFormat nf;
@@ -41,7 +45,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lblSum = findViewById(R.id.lblSum);
+        final TickerView lblSum = findViewById(R.id.lblSum);
+        lblSum.setCharacterLists(TickerUtils.provideNumberList());
+        lblSum.setAnimationInterpolator(new LinearInterpolator());
+
+        //lblSum = findViewById(R.id.lblSum);
+        btnOrderDown = findViewById(R.id.btnSortDown);
+        btnOrderUp = findViewById(R.id.btnSortUp);
         lblBestPct = findViewById(R.id.pct_best);
         lblLowePct = findViewById(R.id.percent_low);
         lblCodBest = findViewById(R.id.id_best);
@@ -118,5 +128,7 @@ public class MainActivity extends AppCompatActivity {
             compAdapter.notifyDataSetChanged();
         });
 
+        viewModel.getAllCompDesc().observe(this, companies ->
+                compAdapter.setComps(companies));
     }
 }

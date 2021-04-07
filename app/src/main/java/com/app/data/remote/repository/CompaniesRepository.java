@@ -27,10 +27,10 @@ public class CompaniesRepository {
     }
 
     public void insert(Companies companies) { new InsertCompAsyncTask(companiesDao).execute(companies); }
-
     public void update(Companies companies) { new UpdateAsyncTask(companiesDao).execute(companies); }
 
     public LiveData<List<Companies>> getAllComp() { return allComp; }
+    public LiveData<List<Companies>> getAllCompOrderDown() { return companiesDao.getAllCompDesc(); }
 
     public LiveData<List<Companies>> getMaxCompValue() { return companiesDao.getMaxValues(); }
     public LiveData<List<Companies>> getMinCompValue() { return companiesDao.getMinValues(); }
