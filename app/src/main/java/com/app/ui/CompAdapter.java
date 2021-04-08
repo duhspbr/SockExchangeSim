@@ -55,6 +55,7 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
         textViewCompCode, lblPercent, lblTituloComp;
         final private ImageView imgLogo;
         private RelativeLayout relative;
+        private NumberFormat nft;
 
         public MViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -88,7 +89,10 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
                         seekBar.setMax(1500);
                         textMoney = dialogView.findViewById(R.id.textMoney);
                         textQtde = dialogView.findViewById(R.id.textQtde);
-                        CompaniesViewModel viewModel;
+
+                        Float val = Float.parseFloat(textViewMoney.getText().toString()
+                                .replace("R$ ", "").replace(",", "."));
+                        textMoney.setText("R$ " + val);
 
                         builder.create();
                         builder.show();
@@ -96,10 +100,11 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
                         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                textQtde.setText(String.valueOf(progress));
-                                // consultar viewModel o valor de cada ação
+                                textQtde.setText(String.valueOf(progress) + " / 1500");
 
-                                textMoney.setText(String.valueOf(progress * 22.5f));
+                                textMoney.setText("R$ " + String.valueOf(new DecimalFormat("##,##00.00")
+                                        .format(progress * val)));
+
                             }
 
                             @Override

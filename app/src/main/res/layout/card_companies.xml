@@ -75,13 +75,13 @@
             android:id="@+id/lblVal1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img_comp"
             android:layout_below="@+id/lblCompName"
             android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/img_comp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="R$ 1 356, 00"
             android:textColor="#757474"
-            android:textSize="20sp"
-            android:fontFamily="@font/poppins_semibold"/>
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/iconMoney"
