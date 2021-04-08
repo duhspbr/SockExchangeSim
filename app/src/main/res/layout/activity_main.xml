@@ -17,11 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:textStyle="bold"
             android:text="$ 1 233,22"
             android:textColor="#2196F3"
-            app:ticker_animationDuration="1500"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:ticker_animationDuration="1500" />
 
         <TextView
             android:id="@+id/lblText"
@@ -218,9 +218,9 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_below="@id/hscrollv"
-            android:layout_toLeftOf="@+id/btnSortDown"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
+            android:layout_toLeftOf="@+id/btnSortDown"
             android:src="@drawable/arrowup"
             android:textSize="20sp" />
 
@@ -229,9 +229,9 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_below="@id/hscrollv"
-            android:layout_toLeftOf="@+id/btnUpdate"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="30dp"
+            android:layout_toLeftOf="@+id/btnUpdate"
             android:src="@drawable/arrowdown"
             android:textSize="20sp" />
 

@@ -31,10 +31,12 @@ public class CompaniesRepository {
 
     public LiveData<List<Companies>> getAllComp() { return allComp; }
     public LiveData<List<Companies>> getAllCompOrderDown() { return companiesDao.getAllCompDesc(); }
+    public LiveData<List<Companies>> getAllCompOrderUp() { return companiesDao.getAllCompUp(); }
 
     public LiveData<List<Companies>> getMaxCompValue() { return companiesDao.getMaxValues(); }
     public LiveData<List<Companies>> getMinCompValue() { return companiesDao.getMinValues(); }
     public LiveData<Float> getSum() { return companiesDao.getSum(); }
+
 
     private static class InsertCompAsyncTask extends AsyncTask<Companies, Void, Void> {
         private final CompaniesDao companiesDao;

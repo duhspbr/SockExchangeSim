@@ -1,5 +1,7 @@
 package com.app.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -7,13 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.data.models.Companies;
+import com.app.data.remote.datasource.CompaniesDao;
 import com.app.recyclerviewadapterexample.R;
 
 import java.text.BreakIterator;
@@ -25,12 +32,21 @@ import java.util.List;
 import java.util.Locale;
 
 public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
+
     private List<Companies> companiesList = new ArrayList<>();
-    private Context context;
+    public Context context;
     private Drawable icon;
     private Companies currentItem;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemCardClick(int position);
+    }
+
+    public void setOnItemClickListener (OnItemClickListener listener) { mListener = listener; }
 
     public CompAdapter(Context context) {
+        super();
         this.context = context;
     }
 
@@ -38,14 +54,66 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
         final private TextView textViewMoney,
         textViewCompCode, lblPercent, lblTituloComp;
         final private ImageView imgLogo;
+        private RelativeLayout relative;
 
-        public MViewHolder(@NonNull View itemView) {
+        public MViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
+
+            // ui components
             textViewMoney = itemView.findViewById(R.id.lblVal1);
             textViewCompCode = itemView.findViewById(R.id.lblCompName);
             imgLogo = itemView.findViewById(R.id.img_comp);
             lblPercent = itemView.findViewById(R.id.lblPercent);
             lblTituloComp = itemView.findViewById(R.id.lblTituloComp);
+
+            // ui layout
+            relative = itemView.findViewById(R.id.relativeItemCard);
+
+            relative.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemCardClick(position);
+
+                        LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
+                        View dialogView = inflater.inflate(R.layout.buy_dialog_layout, null);
+
+                        TextView textQtde, textMoney;
+                        SeekBar seekBar;
+
+                        // dialog constructor
+                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+                        builder.setView(dialogView);
+                        seekBar = dialogView.findViewById(R.id.seekBuy);
+                        seekBar.setMax(1500);
+                        textMoney = dialogView.findViewById(R.id.textMoney);
+                        textQtde = dialogView.findViewById(R.id.textQtde);
+                        CompaniesViewModel viewModel;
+
+                        builder.create();
+                        builder.show();
+
+                        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                            @Override
+                            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                textQtde.setText(String.valueOf(progress));
+                                // consultar viewModel o valor de cada ação
+
+                                textMoney.setText(String.valueOf(progress * 22.5f));
+                            }
+
+                            @Override
+                            public void onStartTrackingTouch(SeekBar seekBar) {
+                            }
+
+                            @Override
+                            public void onStopTrackingTouch(SeekBar seekBar) {
+                                Toast.makeText(builder.getContext(), "Finished", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            });
         }
     }
 
@@ -54,7 +122,7 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
     public MViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_companies, parent, false);
-        MViewHolder mViewHolder = new MViewHolder(v);
+        MViewHolder mViewHolder = new MViewHolder(v, mListener);
         return mViewHolder;
     }
 

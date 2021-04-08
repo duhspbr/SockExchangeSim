@@ -34,6 +34,7 @@ public class CompaniesViewModel extends AndroidViewModel {
 
     public LiveData<List<Companies>> getAllComp() { return allComp; }
     public LiveData<List<Companies>> getAllCompDesc() { return repository.getAllCompOrderDown(); }
+    public LiveData<List<Companies>> getAllCompAsc() { return repository.getAllCompOrderUp(); }
 
     public LiveData<List<Companies>> getMaxComp() { return repository.getMaxCompValue(); }
     public LiveData<List<Companies>> getMinComp() { return repository.getMinCompValue(); }

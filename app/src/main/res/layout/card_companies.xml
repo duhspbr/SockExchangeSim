@@ -11,6 +11,7 @@
     android:background="#66858181">
 
     <RelativeLayout
+        android:id="@+id/relativeItemCard"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"

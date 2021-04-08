@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         lblSum.setCharacterLists(TickerUtils.provideNumberList());
         lblSum.setAnimationInterpolator(new LinearInterpolator());
 
-        //lblSum = findViewById(R.id.lblSum);
         btnOrderDown = findViewById(R.id.btnSortDown);
         btnOrderUp = findViewById(R.id.btnSortUp);
         lblBestPct = findViewById(R.id.pct_best);
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         recyclerView = findViewById(R.id.rcv);
         layoutManager = new LinearLayoutManager(this);
-        compAdapter = new CompAdapter(this);
+        compAdapter = new CompAdapter(MainActivity.this);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(compAdapter);
@@ -71,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.getAllComp().observe(this, companies ->
                 compAdapter.setComps(companies));
+
+        compAdapter.setOnItemClickListener(position -> { });
 
         viewModel.getMaxComp().observe(this, companies -> {
             if (companies == null || companies.size() == 0) {
@@ -128,7 +129,16 @@ public class MainActivity extends AppCompatActivity {
             compAdapter.notifyDataSetChanged();
         });
 
-        viewModel.getAllCompDesc().observe(this, companies ->
-                compAdapter.setComps(companies));
+        btnOrderDown.setOnClickListener(v -> {
+            viewModel.getAllCompDesc().observe(this, companies ->
+                    compAdapter.setComps(companies));
+        });
+        compAdapter.notifyDataSetChanged();
+
+        btnOrderUp.setOnClickListener(v -> {
+            viewModel.getAllCompAsc().observe(this, companies ->
+                    compAdapter.setComps(companies));
+        });
+        compAdapter.notifyDataSetChanged();
     }
 }
