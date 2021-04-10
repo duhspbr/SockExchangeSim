@@ -36,4 +36,6 @@ public interface CompaniesDao {
     @Query("SELECT * FROM  comp_data WHERE pct_bfr = (SELECT MIN (pct_bfr) FROM comp_data)")
     LiveData<List<Companies>> getMinValues();
 
+//    @Query("SELECT logoImg FROM comp_data WHERE cod=:compCode")
+//    String getImgText(String compCode);
 }

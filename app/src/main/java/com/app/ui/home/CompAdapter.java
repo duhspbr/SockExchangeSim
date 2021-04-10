@@ -1,7 +1,7 @@
-package com.app.ui;
+package com.app.ui.home;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -15,15 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.data.models.Cart;
 import com.app.data.models.Companies;
-import com.app.data.remote.datasource.CompaniesDao;
 import com.app.recyclerviewadapterexample.R;
+import com.app.ui.history.HistoryFragment;
+import com.app.ui.history.HistoryViewModel;
 
-import java.text.BreakIterator;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -31,13 +35,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
+public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> implements ViewModelStoreOwner {
 
+    private static CompaniesViewModel companiesViewModel;
+    private static HistoryViewModel historyViewModel;
     private List<Companies> companiesList = new ArrayList<>();
-    public Context context;
+    public static Context context;
     private Drawable icon;
     private Companies currentItem;
     private OnItemClickListener mListener;
+
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return null;
+    }
 
     public interface OnItemClickListener {
         void onItemCardClick(int position);
@@ -45,7 +57,7 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
 
     public void setOnItemClickListener (OnItemClickListener listener) { mListener = listener; }
 
-    public CompAdapter(Context context) {
+    public CompAdapter(Context context ) {
         super();
         this.context = context;
     }
@@ -57,9 +69,12 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
         private RelativeLayout relative;
         private NumberFormat nft;
 
+        float newVal;
+
         public MViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
+            // viewModel from historyViewModel
             // ui components
             textViewMoney = itemView.findViewById(R.id.lblVal1);
             textViewCompCode = itemView.findViewById(R.id.lblCompName);
@@ -75,52 +90,12 @@ public class CompAdapter extends RecyclerView.Adapter<CompAdapter.MViewHolder> {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemCardClick(position);
-
-                        LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
-                        View dialogView = inflater.inflate(R.layout.buy_dialog_layout, null);
-
-                        TextView textQtde, textMoney;
-                        SeekBar seekBar;
-
-                        // dialog constructor
-                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                        builder.setView(dialogView);
-                        seekBar = dialogView.findViewById(R.id.seekBuy);
-                        seekBar.setMax(1500);
-                        textMoney = dialogView.findViewById(R.id.textMoney);
-                        textQtde = dialogView.findViewById(R.id.textQtde);
-
-                        Float val = Float.parseFloat(textViewMoney.getText().toString()
-                                .replace("R$ ", "").replace(",", "."));
-                        textMoney.setText("R$ " + val);
-
-                        builder.create();
-                        builder.show();
-
-                        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                            @Override
-                            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                textQtde.setText(String.valueOf(progress) + " / 1500");
-
-                                textMoney.setText("R$ " + String.valueOf(new DecimalFormat("##,##00.00")
-                                        .format(progress * val)));
-
-                            }
-
-                            @Override
-                            public void onStartTrackingTouch(SeekBar seekBar) {
-                            }
-
-                            @Override
-                            public void onStopTrackingTouch(SeekBar seekBar) {
-                                Toast.makeText(builder.getContext(), "Finished", Toast.LENGTH_LONG).show();
-                            }
-                        });
                     }
                 }
             });
         }
     }
+
 
     @NonNull
     @Override

@@ -37,6 +37,8 @@ public class CompaniesRepository {
     public LiveData<List<Companies>> getMinCompValue() { return companiesDao.getMinValues(); }
     public LiveData<Float> getSum() { return companiesDao.getSum(); }
 
+    //public String getImgText(String compCode) { return companiesDao.getImgText(compCode); }
+
 
     private static class InsertCompAsyncTask extends AsyncTask<Companies, Void, Void> {
         private final CompaniesDao companiesDao;

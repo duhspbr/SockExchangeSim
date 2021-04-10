@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_comp"
+    tools:context="com.app.ui.history.HistoryFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/lblSum2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="$ 1 233,22"
+            android:textColor="#2196F3"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:ticker_animationDuration="1500" />
+
+        <TextView
+            android:id="@+id/lblText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblSum2"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/poppins_bold"
+            android:text="TOTAL"
+            android:textColor="#1B1C1C"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/textToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rcv_cart"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="PURCHACED"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rcv_cart"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@+id/textToday"
+            android:src="@drawable/ic_cart" />
+
+        <ImageView
+            android:id="@+id/btnUpdate"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/lblText"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_update"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btnSortUp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/lblText"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toLeftOf="@+id/btnSortDown"
+            android:src="@drawable/arrowup"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btnSortDown"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/lblText"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_toLeftOf="@+id/btnUpdate"
+            android:src="@drawable/arrowdown"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnUpdate"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            tools:listitem="@layout/card_cart" />
+
+    </RelativeLayout>
+
+</ScrollView>

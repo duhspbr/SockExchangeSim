@@ -1,4 +1,4 @@
-package com.app.ui;
+package com.app.ui.home;
 
 import android.app.Application;
 
@@ -29,12 +29,15 @@ public class CompaniesViewModel extends AndroidViewModel {
 
     }
 
+    //updates
     public void insert(Companies companies) { repository.insert(companies); }
     public void update(Companies companies) { repository.update(companies); }
 
+    //selects
     public LiveData<List<Companies>> getAllComp() { return allComp; }
     public LiveData<List<Companies>> getAllCompDesc() { return repository.getAllCompOrderDown(); }
     public LiveData<List<Companies>> getAllCompAsc() { return repository.getAllCompOrderUp(); }
+    //public String getImgText(String compCode) { return repository.getImgText(compCode); }
 
     public LiveData<List<Companies>> getMaxComp() { return repository.getMaxCompValue(); }
     public LiveData<List<Companies>> getMinComp() { return repository.getMinCompValue(); }

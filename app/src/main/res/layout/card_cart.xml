@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    android:elevation="15dp"
+    android:background="#66858181">
+
+    <RelativeLayout
+        android:id="@+id/relativeItemCard"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_comp">
+
+        <ImageView
+            android:id="@+id/img_comp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/c9"/>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/border_imageview"/>
+
+        <TextView
+            android:id="@+id/lblTituloComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/img_comp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Burger King"
+            android:textColor="#2196F3" />
+
+
+        <TextView
+            android:id="@+id/lblCompCod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblTituloComp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/img_comp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="BBK"
+            android:textColor="#535255"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/lblPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lblVal1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="+2,34%"
+            android:textColor="#43A047"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/lblVal1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCompCod"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/img_comp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="R$ 1 356, 00"
+            android:textColor="#757474"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblVal2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblPercent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="R$ 23,00"
+            android:textColor="#757474"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
