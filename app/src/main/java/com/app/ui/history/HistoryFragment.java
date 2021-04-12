@@ -81,8 +81,12 @@ public class HistoryFragment extends Fragment {
             historyAdapter.setCartList(carts);
                 });
 
-        viewModel.getSum().observe(getViewLifecycleOwner(), aFloat ->
-                lblSum.setText(new DecimalFormat("#,##0.00").format(aFloat)));
+        viewModel.getSum().observe(getViewLifecycleOwner(), aFloat -> {
+            nf = new DecimalFormat("#,##0.00");
+            String newValf = nf.format(aFloat);
+            newValf = "R$ " + newValf;
+            lblSum.setText(newValf);
+        });
 
         // btnFunctions
         btnOrderDown.setOnClickListener(v ->

@@ -62,8 +62,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MViewHol
 
         holder.textCodComp.setText(currentItem.getCompCode());
         holder.textCompName.setText(currentItem.getCompName());
-        holder.textMoney.setText(new String("R$ " + currentItem.getVal()));
-        holder.textPercent.setText(new DecimalFormat("##,#00.0").format(currentItem.getPct()) + "%");
+        holder.textMoney.setText(new String("R$ " + new DecimalFormat("##,##00.00")
+                .format(currentItem.getVal())));
+        holder.textPercent.setText(new DecimalFormat("##,##00.00").format(currentItem.getPct()) + "%");
         int id = context.getResources().getIdentifier(currentItem.getCompImg(), "drawable", context.getPackageName());
         icon = context.getResources().getDrawable(id);
         holder.imgLogo.setImageDrawable(icon);

@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment {
 
         textBuy.setOnClickListener(v -> {
             Cart cart = new Cart(compAdapter.getItem(position).getName(),
-                    compAdapter.getItem(position).getCod(), newVal,
+                    compAdapter.getItem(position).getCod(), newVal/10.0f,
                     compAdapter.getItem(position).getLogoImg(), compAdapter.getItem(position).getPct_bfr());
             historyViewModel.insert(cart);
 
@@ -226,14 +226,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 setVal(Float.parseFloat(textMoney.getText().toString().replace("R$", "")
-                        .replace(",", "")));
+                        .replace(",", "").replace(".", "")));
             }
         });
 
     }
 
     private void setVal(float progress) {
-        newVal = progress;
+        newVal = progress/10.0f;
     }
 
     private void closeDialog() {

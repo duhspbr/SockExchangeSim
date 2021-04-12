@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.app.data.models.Cart;
 
-@Database(entities = { Cart.class }, version = 1)
+@Database(entities = { Cart.class }, version = 2)
 public abstract class CartDatabase extends RoomDatabase {
 
     private static CartDatabase instance;
