@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.data.models.Cart;
 import com.app.recyclerviewadapterexample.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MViewHol
         holder.textCodComp.setText(currentItem.getCompCode());
         holder.textCompName.setText(currentItem.getCompName());
         holder.textMoney.setText(new String("R$ " + currentItem.getVal()));
+        holder.textPercent.setText(new DecimalFormat("##,#00.0").format(currentItem.getPct()) + "%");
         int id = context.getResources().getIdentifier(currentItem.getCompImg(), "drawable", context.getPackageName());
         icon = context.getResources().getDrawable(id);
         holder.imgLogo.setImageDrawable(icon);

@@ -10,14 +10,15 @@ public class Cart {
 
     private String compName;
     private String compCode;
-    private float val;
+    private float val, pct;
     private String compImg;
 
-    public Cart(String compName, String compCode, float val, String compImg) {
+    public Cart(String compName, String compCode, float val, String compImg, float pct) {
         this.compName = compName;
         this.compCode = compCode;
         this.compImg = compImg;
         this.val = val;
+        this.pct = pct;
     }
 
     public String getCompName() {
@@ -27,6 +28,8 @@ public class Cart {
     public String getCompCode() {
         return compCode;
     }
+
+    public float getPct() { return pct; }
 
     public float getVal() {
         return val;

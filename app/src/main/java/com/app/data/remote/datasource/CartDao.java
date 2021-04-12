@@ -27,4 +27,7 @@ public interface CartDao {
 
     @Query("SELECT * FROM cart_data ORDER BY val DESC")
     LiveData<List<Cart>> getAllCartsUp();
+
+    @Query("SELECT SUM (val) FROM cart_data")
+    LiveData<Float> getSum();
 }

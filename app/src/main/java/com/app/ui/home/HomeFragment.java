@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment {
         textBuy.setOnClickListener(v -> {
             Cart cart = new Cart(compAdapter.getItem(position).getName(),
                     compAdapter.getItem(position).getCod(), newVal,
-                    compAdapter.getItem(position).getLogoImg());
+                    compAdapter.getItem(position).getLogoImg(), compAdapter.getItem(position).getPct_bfr());
             historyViewModel.insert(cart);
 
             Toast.makeText(builder.getContext(), "Data Saved!", Toast.LENGTH_LONG).show();

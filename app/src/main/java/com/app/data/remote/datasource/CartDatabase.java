@@ -44,7 +44,7 @@ public abstract class CartDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            cartDao.insert(new Cart("Britsh Airways", "CCC", 1233.2f, "c4"));
+            cartDao.insert(new Cart("Britsh Airways", "CCC", 1233.2f, "c4", 23.4f));
             return null;
         }
     }

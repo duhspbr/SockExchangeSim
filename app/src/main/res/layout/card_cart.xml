@@ -67,6 +67,7 @@
             android:layout_above="@+id/lblVal1"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="-2dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="+2,34%"
             android:textColor="#43A047"

@@ -27,6 +27,7 @@ public class CartRepository {
     public void update(Cart cart) { new UpdateCartAsyncTask(cartDao).execute(cart); }
 
     public LiveData<List<Cart>> getAllCart() { return allCart; }
+    public LiveData<Float> getSum() { return cartDao.getSum(); }
 
     public LiveData<List<Cart>> getAllCartsOrderDown() { return cartDao.getAllCartsDesc(); }
     public LiveData<List<Cart>> getAllCartsOrderUp() { return cartDao.getAllCartsUp(); }

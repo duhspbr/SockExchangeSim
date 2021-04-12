@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class HistoryFragment extends Fragment {
     private HistoryViewModel viewModel;
     private ImageView btnUpdate, btnOrderUp, btnOrderDown;
     private TextView lblBestPct, lblLowePct, lblMoneyBest, lblMoneyLow, lblCodBest,
-            lblCodLow, lblSum;
+            lblCodLow, lblSum, lblVal2;
     private NumberFormat nf;
 
     public HistoryFragment() {
@@ -58,6 +59,7 @@ public class HistoryFragment extends Fragment {
         lblSum.setCharacterLists(TickerUtils.provideNumberList());
         lblSum.setAnimationInterpolator(new LinearInterpolator());
 
+        lblVal2 = root.findViewById(R.id.lblVal2);
         btnOrderDown = root.findViewById(R.id.btnSortDown);
         btnOrderUp = root.findViewById(R.id.btnSortUp);
         lblBestPct = root.findViewById(R.id.pct_best);
@@ -79,11 +81,13 @@ public class HistoryFragment extends Fragment {
             historyAdapter.setCartList(carts);
                 });
 
+        viewModel.getSum().observe(getViewLifecycleOwner(), aFloat ->
+                lblSum.setText(new DecimalFormat("#,##0.00").format(aFloat)));
+
         // btnFunctions
-        btnOrderDown.setOnClickListener(v -> {
-            viewModel.getAllCartsDesc().observe(getViewLifecycleOwner(), carts ->
-                    historyAdapter.setCartList(carts));
-        });
+        btnOrderDown.setOnClickListener(v ->
+                viewModel.getAllCartsDesc().observe(getViewLifecycleOwner(), carts ->
+                historyAdapter.setCartList(carts)));
         historyAdapter.notifyDataSetChanged();
 
         btnOrderUp.setOnClickListener(v -> {
@@ -91,6 +95,7 @@ public class HistoryFragment extends Fragment {
                     historyAdapter.setCartList(carts));
         });
         historyAdapter.notifyDataSetChanged();
+
 
         return root;
     }

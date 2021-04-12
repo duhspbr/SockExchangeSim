@@ -31,6 +31,8 @@ public class HistoryViewModel extends AndroidViewModel {
     public void insert(Cart cart) { repository.insert(cart); }
     public void update(Cart cart) { repository.update(cart); }
 
+    public LiveData<Float> getSum() { return repository.getSum(); }
+
     public LiveData<List<Cart>> getAllCart() { return allCart; }
     public LiveData<List<Cart>> getAllCartsDesc() { return repository.getAllCartsOrderDown(); }
     public LiveData<List<Cart>> getAllCartsAsc() { return repository.getAllCartsOrderUp(); }
