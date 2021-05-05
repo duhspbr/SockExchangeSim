@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="$ 1 233,22"
-            android:textColor="#2196F3"
+            android:textColor="#3A3A3A"
             android:textSize="40sp"
             android:textStyle="bold"
             app:ticker_animationDuration="1500" />
@@ -30,8 +30,8 @@
             android:layout_below="@+id/lblSum"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/poppins_bold"
-            android:textColor="#2196F3"
             android:text="TOTAL WORTH"
+            android:textColor="#6C6A6A"
             android:textSize="10dp" />
 
         <HorizontalScrollView
@@ -136,51 +136,51 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="245.00"
                             android:fontFamily="@font/poppins_bold"
-                            android:textSize="30sp"/>
+                            android:text="245.00"
+                            android:textSize="30sp" />
 
                         <TextView
                             android:id="@+id/percent_low"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/img_arrow2"
                             android:layout_below="@+id/text_money_low"
-                            android:text="3.34%"
+                            android:layout_toRightOf="@+id/img_arrow2"
                             android:fontFamily="@font/poppins_medium"
-                            android:textSize="18sp"
-                            android:textColor="#B71C1C"/>
+                            android:text="3.34%"
+                            android:textColor="#B71C1C"
+                            android:textSize="18sp" />
 
                         <ImageView
                             android:id="@+id/img_arrow2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginStart="10dp"
                             android:layout_below="@+id/text_money_low"
-                            android:src="@drawable/ic_arrow_down_mini"/>
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_arrow_down_mini" />
 
                         <TextView
                             android:id="@+id/id_low"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
                             android:layout_below="@+id/text_money_low"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/poppins_medium"
                             android:text="FGB"
-                            android:textColor="#311B92"/>
+                            android:textColor="#311B92" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/percent_low"
                             android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginBottom="5dp"
-                            android:text="MIN"
                             android:fontFamily="@font/poppins_bold"
-                            android:textSize="18sp"/>
+                            android:text="MIN"
+                            android:textSize="18sp" />
 
                     </RelativeLayout>
 

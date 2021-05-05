@@ -16,8 +16,13 @@
         <entry key="..\:/Users/Eduardo Santino/AndroidStudioProjects/StockExchangeSim/app/src/main/res/layout/fragment_history.xml" value="0.25" />
         <entry key="..\:/Users/Eduardo Santino/AndroidStudioProjects/StockExchangeSim/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Eduardo Santino/AndroidStudioProjects/StockExchangeSim/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/drawable/arrowdown.xml" value="0.2203125" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/drawable/arrowup.xml" value="0.2203125" />
         <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/buy_dialog_layout.xml" value="0.362962962962963" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/card_companies.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/fragment_history.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo Santino/StockExchangeSim/app/src/main/res/layout/fragment_home.xml" value="0.27143869596031184" />
       </map>
     </option>
   </component>

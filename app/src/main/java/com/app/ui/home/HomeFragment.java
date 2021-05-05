@@ -1,12 +1,16 @@
 package com.app.ui.home;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +30,7 @@ import android.widget.Toast;
 import com.app.data.models.Cart;
 import com.app.data.models.Companies;
 import com.app.recyclerviewadapterexample.R;
+import com.app.recyclerviewadapterexample.databinding.FragmentHomeBinding;
 import com.app.ui.history.HistoryViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
@@ -35,23 +40,24 @@ import com.robinhood.ticker.TickerView;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CompAdapter compAdapter;
     private CompaniesViewModel viewModel;
-    private ImageView btnUpdate, btnOrderUp, btnOrderDown;
-    private TextView lblBestPct, lblLowePct, lblMoneyBest, lblMoneyLow, lblCodBest,
-            lblCodLow, lblSum;
     private NumberFormat nf;
     private AlertDialog alert;
     private float newVal;
+    private int mStackLevel = 0;
 
     public HomeFragment() {
         // Required empty public constructor
     }
+
+    private FragmentHomeBinding binding;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -60,28 +66,19 @@ public class HomeFragment extends Fragment {
         viewModel =
                 new ViewModelProvider(this).get(CompaniesViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        //View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        final TickerView lblSum = root.findViewById(R.id.lblSum);
-        lblSum.setCharacterLists(TickerUtils.provideNumberList());
-        lblSum.setAnimationInterpolator(new LinearInterpolator());
+        binding.lblSum.setCharacterLists(TickerUtils.provideNumberList());
+        binding.lblSum.setAnimationInterpolator(new LinearInterpolator());
 
-        btnOrderDown = root.findViewById(R.id.btnSortDown);
-        btnOrderUp = root.findViewById(R.id.btnSortUp);
-        lblBestPct = root.findViewById(R.id.pct_best);
-        lblLowePct = root.findViewById(R.id.percent_low);
-        lblCodBest = root.findViewById(R.id.id_best);
-        lblCodLow = root.findViewById(R.id.id_low);
-        lblMoneyBest = root.findViewById(R.id.text_money_best);
-        lblMoneyLow = root.findViewById(R.id.text_money_low);
-        btnUpdate = root.findViewById(R.id.btnUpdate);
-        recyclerView = root.findViewById(R.id.rcv);
         layoutManager = new LinearLayoutManager(getActivity());
         compAdapter = new CompAdapter(getActivity());
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(compAdapter);
+        binding.rcv.setLayoutManager(layoutManager);
+        binding.rcv.setAdapter(compAdapter);
 
         viewModel.getAllComp().observe(getViewLifecycleOwner(), companies -> {
             compAdapter.setComps(companies);
@@ -98,13 +95,13 @@ public class HomeFragment extends Fragment {
                 nf = new DecimalFormat("#,##0.00");
                 newValf = nf.format(comp.getPct_bfr());
                 newValf = newValf + "%";
-                lblBestPct.setText(newValf);
+                binding.pctBest.setText(newValf);
 
                 nf = new DecimalFormat("#,##0.00");
                 newValf = nf.format(comp.getVal());
-                lblMoneyBest.setText(newValf);
+                binding.textMoneyBest.setText(newValf);
 
-                lblCodBest.setText(comp.getCod());
+                binding.idBest.setText(comp.getCod());
             }
         });
 
@@ -117,13 +114,13 @@ public class HomeFragment extends Fragment {
                 nf = new DecimalFormat("#,##0.00");
                 newValf = nf.format(comp.getPct_bfr());
                 newValf = newValf + "%";
-                lblLowePct.setText(newValf);
+                binding.percentLow.setText(newValf);
 
                 nf = new DecimalFormat("#,##0.00");
                 newValf = nf.format(comp.getVal());
-                lblMoneyLow.setText(newValf);
+                binding.textMoneyLow.setText(newValf);
 
-                lblCodLow.setText(comp.getCod());
+                binding.idLow.setText(comp.getCod());
             }
         });
 
@@ -131,10 +128,10 @@ public class HomeFragment extends Fragment {
             nf = new DecimalFormat("#,##0.00");
             String newValf = nf.format(aFloat);
             newValf = "R$ " + newValf;
-            lblSum.setText(newValf);
+            binding.lblSum.setText(newValf);
         });
 
-        btnUpdate.setOnClickListener(v -> {
+        binding.btnUpdate.setOnClickListener(v -> {
 
             for (int i = 0; i < compAdapter.getItemCount(); i++) {
                 Companies comp = compAdapter.getItem(i);
@@ -145,13 +142,13 @@ public class HomeFragment extends Fragment {
             compAdapter.notifyDataSetChanged();
         });
 
-        btnOrderDown.setOnClickListener(v -> {
+        binding.btnSortDown.setOnClickListener(v -> {
             viewModel.getAllCompDesc().observe(getViewLifecycleOwner(), companies ->
                     compAdapter.setComps(companies));
         });
         compAdapter.notifyDataSetChanged();
 
-        btnOrderUp.setOnClickListener(v -> {
+        binding.btnSortUp.setOnClickListener(v -> {
             viewModel.getAllCompAsc().observe(getViewLifecycleOwner(), companies ->
                     compAdapter.setComps(companies));
         });
@@ -160,84 +157,95 @@ public class HomeFragment extends Fragment {
         compAdapter.setOnItemClickListener(new CompAdapter.OnItemClickListener() {
             @Override
             public void onItemCardClick(int position) {
-                createDialog(position);
+                showDialog();
             }
         });
 
-        return root;
+        return view;
     }
 
-    public void createDialog(int position) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View dialogView = inflater.inflate(R.layout.buy_dialog_layout, null);
-        HistoryViewModel historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+    void showDialog() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
 
-        TextView textQtde, textMoney;
-        TextView textBuy, textCancel;
-        SeekBar seekBar;
-
-        // dialog constructor
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-        builder.setView(dialogView);
-        seekBar = dialogView.findViewById(R.id.seekBuy);
-        seekBar.setMax(1500);
-        textBuy = dialogView.findViewById(R.id.textBuy);
-        textCancel = dialogView.findViewById(R.id.textCancel);
-        textMoney = dialogView.findViewById(R.id.textMoney);
-        textQtde = dialogView.findViewById(R.id.textQtde);
-
-        Float val = compAdapter.getItem(position).getVal();
-        textMoney.setText("R$ " + new DecimalFormat("#,##0.00").format(val));
-
-        builder.create();
-        builder.show();
-
-        textBuy.setOnClickListener(v -> {
-            Cart cart = new Cart(compAdapter.getItem(position).getName(),
-                    compAdapter.getItem(position).getCod(), newVal/10.0f,
-                    compAdapter.getItem(position).getLogoImg(), compAdapter.getItem(position).getPct_bfr());
-            historyViewModel.insert(cart);
-
-            Toast.makeText(builder.getContext(), "Data Saved!", Toast.LENGTH_LONG).show();
-
-        });
-
-        textCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.setOnDismissListener(DialogInterface::dismiss);
-            }
-        });
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textQtde.setText(String.valueOf(progress) + " / 1500");
-
-                textMoney.setText("R$ " + String.valueOf(new DecimalFormat("##,##00.00")
-                        .format(progress * val)));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                setVal(Float.parseFloat(textMoney.getText().toString().replace("R$", "")
-                        .replace(",", "").replace(".", "")));
-            }
-        });
-
+        // Create and show the dialog.
+        DialogFragment newFragment = MyDialogFragment.newInstance();
+        newFragment.show(ft, "dialog");
     }
 
-    private void setVal(float progress) {
-        newVal = progress/10.0f;
-    }
-
-    private void closeDialog() {
-        alert.dismiss();
-    }
+//    public void createDialog(int position) {
+//        LayoutInflater inflater = LayoutInflater.from(getContext());
+//        View dialogView = inflater.inflate(R.layout.buy_dialog_layout, null);
+//        HistoryViewModel historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+//
+//        TextView textQtde, textMoney;
+//        TextView textBuy, textCancel;
+//        SeekBar seekBar;
+//
+//        // dialog constructor
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+//        builder.setView(dialogView);
+//        seekBar = dialogView.findViewById(R.id.seekBuy);
+//        seekBar.setMax(1500);
+//        textBuy = dialogView.findViewById(R.id.textBuy);
+//        textCancel = dialogView.findViewById(R.id.textCancel);
+//        textMoney = dialogView.findViewById(R.id.textMoney);
+//        textQtde = dialogView.findViewById(R.id.textQtde);
+//
+//        Float val = compAdapter.getItem(position).getVal();
+//        textMoney.setText("R$ " + new DecimalFormat("#,##0.00").format(val));
+//
+//        builder.create();
+//        builder.show();
+//
+//        textBuy.setOnClickListener(v -> {
+//            Cart cart = new Cart(compAdapter.getItem(position).getName(),
+//                    compAdapter.getItem(position).getCod(), newVal/10.0f,
+//                    compAdapter.getItem(position).getLogoImg(), compAdapter.getItem(position).getPct_bfr());
+//            historyViewModel.insert(cart);
+//
+//            Toast.makeText(builder.getContext(), "Data Saved!", Toast.LENGTH_LONG).show();
+//
+//        });
+//
+//        textCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                builder.setOnDismissListener(DialogInterface::dismiss);
+//            }
+//        });
+//
+//
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                textQtde.setText(String.valueOf(progress) + " / 1500");
+//
+//                textMoney.setText("R$ " + String.valueOf(new DecimalFormat("##,##00.00")
+//                        .format(progress * val)));
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                setVal(Float.parseFloat(textMoney.getText().toString().replace("R$", "")
+//                        .replace(",", "").replace(".", "")));
+//            }
+//        });
+//
+//    }
+//
+//    private void setVal(float progress) {
+//        newVal = progress/10.0f;
+//    }
 
 }
