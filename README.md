@@ -40,15 +40,12 @@ Random values are generated on a scale of +-5.00%, and directly affect the value
 After the moment of purchase, the value is fixed and stored within the purchasing database (cart_purshased). Posteriorly,
 I intend to insert the sale and capital accumulation feature in the portfolio.
 
-
+## Images
 Sorting gif:
 ![gif1](https://user-images.githubusercontent.com/42584849/114437539-10dcab00-9b9d-11eb-99cf-fd79e35056ff.gif)
 
-Buy
-Popup:
+Buy Popup:
 ![gifbuy](https://user-images.githubusercontent.com/42584849/114438567-4df56d00-9b9e-11eb-850a-e6ce767581d0.gif)
 
 
 Any suggest, let me know! :)
-
-
